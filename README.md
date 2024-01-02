@@ -4,6 +4,6 @@ Deno porting of sl (https://github.com/mtoyoda/sl) command. You can use any opti
 
 ## run
 
-```ts
+```bash
 deno run sl.ts
 ```
