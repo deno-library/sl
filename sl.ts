@@ -606,8 +606,7 @@ async function main() {
   }
   cursor.save();
   cursor.hide();
-  cursor.to(0, 0);
-  cursor.clearDown();
+  cursor.clearScreen();
   for (let x = COLS - 1;; --x) {
     if (LOGO === 1) {
       if (add_sl(x) === ERR) break;
