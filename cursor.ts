@@ -33,20 +33,16 @@ class Cursor {
   private encoder = new TextEncoder();
   private writer = Deno.stdout.writable.getWriter();
 
-  private stdoutWrite(msg: string) {
+  write(msg: string) {
     this.writer.write(this.encoder.encode(msg));
   }
 
   private cursor(action: string) {
-    this.stdoutWrite(ESC + action);
-  }
-
-  write(msg: string) {
-    this.stdoutWrite(msg);
+    this.write(ESC + action);
   }
 
   breakLine() {
-    this.stdoutWrite("\n");
+    this.write("\n");
   }
 
   hide() {
