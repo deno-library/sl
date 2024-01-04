@@ -1,5 +1,7 @@
 import { delay } from "https://deno.land/x/delay@v0.2.0/mod.ts";
-import { cursor } from "./cursor.ts";
+import TermBox from "https://deno.land/x/termbox@v0.1.0/mod.ts";
+
+const termbox = new TermBox();
 
 const D51HEIGHT = 10;
 const D51FUNNEL = 7;
@@ -158,14 +160,10 @@ function my_mvaddstr(y: number, x: number, str: string): void {
       return;
     }
   }
-  // Rendering is too slow
-  // for (let i = 0, len = str.length; i < len && x < COLS; i++, x++) {
-  //   cursor.to(x, y);
-  //   cursor.write(str[i]);
-  // }
 
-  cursor.to(x, y);
-  cursor.write(str.substring(0, COLS - x));
+  for (let i = 0, len = str.length; i < len && x < COLS; i++, x++) {
+    termbox.setCell(x, y, str[i]);
+  }
 }
 
 function option(str: string) {
@@ -604,9 +602,11 @@ async function main() {
       option(arg.substring(1));
     }
   }
-  cursor.save();
-  cursor.hide();
-  cursor.clearScreen();
+
+  // await termbox.cursorSave();
+  await termbox.cursorHide();
+  await termbox.screenClear();
+
   for (let x = COLS - 1;; --x) {
     if (LOGO === 1) {
       if (add_sl(x) === ERR) break;
@@ -616,11 +616,13 @@ async function main() {
       if (add_D51(x) === ERR) break;
     }
     await delay(40);
+
+    termbox.flush();
   }
-  // cursor.clearScreen();
-  cursor.restore();
-  // cursor.to(LINES - 1, COLS - 1);
-  cursor.show();
+  await termbox.cursorTo(0, 0);
+  // await termbox.cursorRestore();
+  await termbox.cursorShow();
+  termbox.end();
 }
 
 main();
