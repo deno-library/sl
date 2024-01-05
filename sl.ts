@@ -221,7 +221,7 @@ const add_sl = (function () {
       my_mvaddstr(
         y + i,
         x,
-        sl[Math.floor((LOGOLENGTH + x) / 3) % LOGOPATTERNS][i]
+        sl[Math.floor((LOGOLENGTH + x) / 3) % LOGOPATTERNS][i],
       );
       my_mvaddstr(y + i + py1, x + 21, coal[i]);
       my_mvaddstr(y + i + py2, x + 42, car[i]);
@@ -608,7 +608,7 @@ async function main() {
   await termbox.cursorHide();
   await termbox.screenClear();
 
-  for (let x = COLS - 1; ; --x) {
+  for (let x = COLS - 1;; --x) {
     if (LOGO === 1) {
       if (add_sl(x) === ERR) break;
     } else if (C51 === 1) {
