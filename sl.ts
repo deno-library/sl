@@ -1,5 +1,5 @@
-import { delay } from "https://deno.land/x/delay@v0.2.0/mod.ts";
-import TermBox from "https://deno.land/x/termbox@v0.1.3/mod.ts";
+import { delay } from "jsr:@std/async@1.0.8/delay";
+import TermBox from "jsr:@deno-library/termbox";
 
 const termbox = new TermBox();
 
